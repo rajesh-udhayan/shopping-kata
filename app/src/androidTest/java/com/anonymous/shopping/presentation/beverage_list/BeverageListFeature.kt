@@ -2,6 +2,7 @@ package com.anonymous.shopping.presentation.beverage_list
 
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createComposeRule
+import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.anonymous.shopping.presentation.theme.ShoppingTheme
@@ -25,4 +26,13 @@ class BeverageListFeature {
         composeTestRule.onNodeWithText("Shopping").assertIsDisplayed()
     }
 
+    @Test
+    fun displayProgressBar(){
+        composeTestRule.setContent {
+            ShoppingTheme {
+                BeverageListView()
+            }
+        }
+        composeTestRule.onNodeWithTag("progress_loader_tag").assertIsDisplayed()
+    }
 }
