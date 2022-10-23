@@ -22,8 +22,7 @@ class BeverageListFeature {
                 BeverageListView()
             }
         }
-        with(composeTestRule){
-            onNodeWithText("Shopping").assertIsDisplayed()
-        }
+        composeTestRule.onNodeWithText("Shopping").assertIsDisplayed()
     }
+
 }
