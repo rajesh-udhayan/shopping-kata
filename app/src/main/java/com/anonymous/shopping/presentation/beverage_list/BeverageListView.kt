@@ -6,6 +6,7 @@ import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
+import com.anonymous.shopping.commons.Constant.progressLoaderTag
 import com.anonymous.shopping.presentation.common_views.TopBar
 
 @Composable
@@ -15,7 +16,7 @@ fun BeverageListView() {
     ) {
         Column {
             CircularProgressIndicator(
-                modifier = Modifier.testTag("progress_loader_tag")
+                modifier = Modifier.testTag(progressLoaderTag)
             )
         }
     }
