@@ -14,4 +14,10 @@ class ProductLocalDataSource @Inject constructor(private val productDao: Product
         return productDao.getProducts()
     }
 
+    suspend fun saveProductsToDB(products: List<Product>) {
+        CoroutineScope(Dispatchers.IO).launch {
+            productDao.saveProducts(products)
+        }
+    }
+
 }
