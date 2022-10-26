@@ -58,19 +58,19 @@ fun BeverageListView(viewModel: MainViewModel) {
                                     contentDescription = "product image"
                                 )
                                 Text(text = item.title, style = TextStyle(fontSize = 22.sp))
-                                Text(text = item.price[0].value.toString(), style = TextStyle(fontSize = 18.sp))
+                                Text(text = item.saleUnitPrice.toString(), style = TextStyle(fontSize = 18.sp))
 
                                 Row {
                                     IconButton(
                                         onClick = {
-                                            isFavoriteClicked = !isFavoriteClicked
+                                            isFavoriteClicked = if(isFavoriteClicked == 1) 0 else 1
                                         },
                                         Modifier.background(Red400, RoundedCornerShape(4.dp))
                                     ) {
                                         Row {
                                             Image(
                                                 painter = painterResource(
-                                                    id = if (isFavoriteClicked) R.drawable.ic_favorite
+                                                    id = if (isFavoriteClicked == 1) R.drawable.ic_favorite
                                                     else R.drawable.ic_favorite_border
                                                 ),
                                                 contentDescription = "favorite button"

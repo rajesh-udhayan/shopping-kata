@@ -8,13 +8,9 @@ data class Product(
     @PrimaryKey
     val id: String,
     val imageURL: String,
-    val price: List<Price>,
+    val saleUnitPrice: Double,
     val ratingCount: Double,
     val title: String,
     val totalReviewCount: Int,
-    val isFavorite: Boolean
-)
-
-data class Price(
-    val value: Double
+    var isFavorite: Int
 )
