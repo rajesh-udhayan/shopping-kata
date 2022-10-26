@@ -76,6 +76,44 @@ class ProductDaoTest {
         job.cancelAndJoin()
     }
 
+    @Test
+    fun updateFavoriteForAProduct() = runBlocking {
+        val product = mockProductData()
+
+        productsDao.saveProducts(listOf(product))
+        productsDao.updateFavorite(1,product.id)
+
+        val latch = CountDownLatch(1)
+        val job = async(Dispatchers.IO) {
+            productsDao.getFavoriteProducts().collect {
+                product.isFavorite = 1
+                assertThat(it).contains(product)
+                latch.countDown()
+            }
+        }
+        latch.await()
+        job.cancelAndJoin()
+    }
+
+    @Test
+    fun removeAProductFromFavorite() = runBlocking {
+        val product = mockProductData()
+        product.isFavorite = 1
+
+        productsDao.saveProducts(listOf(product))
+        productsDao.updateFavorite(0,product.id)
+
+        val latch = CountDownLatch(1)
+        val job = async(Dispatchers.IO) {
+            productsDao.getFavoriteProducts().collect {
+                assertThat(it).doesNotContain(product)
+                latch.countDown()
+            }
+        }
+        latch.await()
+        job.cancelAndJoin()
+    }
+
     private fun mockProductData(): Product {
         val product = Product(
             "23124",

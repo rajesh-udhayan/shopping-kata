@@ -19,4 +19,9 @@ interface ProductDao {
     @Query("SELECT * FROM products")
     fun getProducts(): Flow<List<Product>>
 
+    @Query("UPDATE products SET isFavorite = :isFavorite WHERE id LIKE :id")
+    suspend fun updateFavorite(isFavorite: Int, id: String)
+
+    @Query("SELECT * FROM products where isFavorite = 1")
+    fun getFavoriteProducts(): Flow<List<Product>>
 }
