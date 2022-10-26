@@ -45,4 +45,17 @@ class ProductLocalDataSourceShould: BaseUnitTest() {
 
         coVerify { productDao.deleteAllProducts() }
     }
+
+    @Test
+    fun updateProductFromLocalDataSource() = runTest {
+        val productDao = mockk<ProductDao>()
+        val productLocalDataSource = ProductLocalDataSource(productDao)
+
+        val isFavorite = 1
+        val id = "1234"
+        coEvery { productDao.updateFavorite(isFavorite,id) } just runs
+        productLocalDataSource.updateFavorite(isFavorite,id)
+
+        coVerify { productDao.updateFavorite(isFavorite,id) }
+    }
 }

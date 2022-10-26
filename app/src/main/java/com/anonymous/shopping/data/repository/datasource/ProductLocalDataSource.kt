@@ -26,4 +26,10 @@ class ProductLocalDataSource @Inject constructor(private val productDao: Product
         }
     }
 
+    suspend fun updateFavorite(isFavorite: Int, id: String) {
+        CoroutineScope(Dispatchers.IO).launch {
+            productDao.updateFavorite(isFavorite, id)
+        }
+    }
+
 }
