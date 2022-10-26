@@ -1,4 +1,4 @@
-package com.anonymous.shopping
+package com.anonymous.shopping.presentation
 
 import com.anonymous.shopping.data.model.Product
 import com.anonymous.shopping.data.repository.ProductsRepository
