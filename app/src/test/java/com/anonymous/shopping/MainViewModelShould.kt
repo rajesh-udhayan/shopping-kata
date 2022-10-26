@@ -1,27 +1,21 @@
 package com.anonymous.shopping
 
-import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.anonymous.shopping.data.model.Product
 import com.anonymous.shopping.data.repository.ProductsRepository
 import com.anonymous.shopping.presentation.MainViewModel
-import com.anonymous.shopping.utils.MainCoroutineScopeRule
+import com.anonymous.shopping.utils.BaseUnitTest
 import com.anonymous.shopping.utils.getValueForTest
 import com.google.common.truth.Truth.assertThat
-import io.mockk.*
+import io.mockk.coEvery
+import io.mockk.coVerify
+import io.mockk.mockk
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.runBlocking
-import org.junit.Rule
+import kotlinx.coroutines.test.runTest
 import org.junit.Test
-import org.mockito.Mockito.times
 
-
-class MainViewModelShould {
-
-    @get:Rule
-    var coroutinesTestRule = MainCoroutineScopeRule()
-
-    @get:Rule
-    val instantTaskExecutorRule = InstantTaskExecutorRule()
+@OptIn(ExperimentalCoroutinesApi::class)
+class MainViewModelShould: BaseUnitTest() {
 
     private lateinit var viewModel: MainViewModel
     private val repository: ProductsRepository = mockk()
@@ -29,23 +23,26 @@ class MainViewModelShould {
     private val expected = Result.success(products)
 
     @Test
-    fun getProductsFromRepository() = runBlocking{
-        every { repository.getProducts() } returns flow {
-            emit(expected)
-        }
-        viewModel = MainViewModel(repository)
+    fun getProductsFromRepository() = runTest{
+        viewModel = mockSuccessfulResponse()
         viewModel.productList.getValueForTest()
 
-        verify { repository.getProducts() }
+        coVerify { repository.getProducts() }
     }
 
     @Test
-    fun emitsProductsFromRepository()  = runBlocking{
-        every { repository.getProducts() } returns flow {
-            emit(expected)
-        }
-        viewModel = MainViewModel(repository)
+    fun emitsProductsFromRepository()  = runTest{
+        viewModel = mockSuccessfulResponse()
 
         assertThat(expected).isEqualTo(viewModel.productList.getValueForTest())
+    }
+
+    private fun mockSuccessfulResponse(): MainViewModel {
+        runTest {
+            coEvery { repository.getProducts() } returns flow {
+                emit(expected)
+            }
+        }
+        return MainViewModel(repository)
     }
 }
