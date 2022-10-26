@@ -20,4 +20,10 @@ class ProductLocalDataSource @Inject constructor(private val productDao: Product
         }
     }
 
+    suspend fun clearAll() {
+        CoroutineScope(Dispatchers.IO).launch {
+            productDao.deleteAllProducts()
+        }
+    }
+
 }

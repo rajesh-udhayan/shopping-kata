@@ -34,4 +34,15 @@ class ProductLocalDataSourceShould: BaseUnitTest() {
 
         coVerify { productDao.saveProducts(listOf()) }
     }
+
+    @Test
+    fun deleteProductsFromLocalDataSource() = runTest {
+        val productDao = mockk<ProductDao>()
+        val productLocalDataSource = ProductLocalDataSource(productDao)
+
+        coEvery { productDao.deleteAllProducts() } just runs
+        productLocalDataSource.clearAll()
+
+        coVerify { productDao.deleteAllProducts() }
+    }
 }
