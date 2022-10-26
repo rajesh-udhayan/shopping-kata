@@ -88,6 +88,8 @@ fun BeverageListView(viewModel: MainViewModel) {
                             }
                         })
                     }
+                } else {
+                    //TODO Show error message
                 }
             }
 
