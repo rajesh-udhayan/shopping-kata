@@ -1,8 +1,6 @@
 package com.anonymous.shopping.data.repository.datasource
 
 import com.anonymous.shopping.data.db.ProductDao
-import com.anonymous.shopping.data.model.Product
-import com.anonymous.shopping.data.repository.ProductsRepository
 import com.anonymous.shopping.utils.BaseUnitTest
 import io.mockk.*
 import kotlinx.coroutines.flow.flow
@@ -58,4 +56,18 @@ class ProductLocalDataSourceShould: BaseUnitTest() {
 
         coVerify { productDao.updateFavorite(isFavorite,id) }
     }
+
+    @Test
+    fun getFavoriteProductsFromLocalDataSource() = runTest {
+        val productDao = mockk<ProductDao>()
+        val productLocalDataSource = ProductLocalDataSource(productDao)
+
+        coEvery { productDao.getFavoriteProducts() } returns flow{
+            emit(mockk())
+        }
+        productLocalDataSource.getFavoriteProductsFromDB()
+
+        coVerify { productDao.getFavoriteProducts() }
+    }
+
 }
