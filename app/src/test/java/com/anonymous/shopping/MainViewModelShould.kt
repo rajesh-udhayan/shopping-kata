@@ -19,8 +19,7 @@ class MainViewModelShould: BaseUnitTest() {
 
     private lateinit var viewModel: MainViewModel
     private val repository: ProductsRepository = mockk()
-    private val products = mockk<List<Product>>()
-    private val expected = Result.success(products)
+    private val expected = mockk<List<Product>>()
 
     @Test
     fun getProductsFromRepository() = runTest{

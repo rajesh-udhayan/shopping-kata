@@ -5,7 +5,8 @@ import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class ProductsRepository @Inject constructor(){
-    suspend fun getProducts(): Flow<Result<List<Product>>> {
+
+    suspend fun getProducts(): Flow<List<Product>> {
         TODO("Not yet implemented")
     }
 }

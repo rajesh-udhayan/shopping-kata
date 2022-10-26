@@ -36,60 +36,56 @@ fun BeverageListView(viewModel: MainViewModel) {
         val productList by viewModel.productList.observeAsState()
         Box {
             productList?.let { products ->
-                if (products.getOrNull() != null){
-                    LazyColumn(modifier = Modifier.testTag(beverageListTag),
-                        verticalArrangement = Arrangement.spacedBy(16.dp),
-                        contentPadding = PaddingValues(horizontal = 24.dp, vertical = 8.dp)) {
+                LazyColumn(modifier = Modifier.testTag(beverageListTag),
+                    verticalArrangement = Arrangement.spacedBy(16.dp),
+                    contentPadding = PaddingValues(horizontal = 24.dp, vertical = 8.dp)) {
 
-                        items(items = products.getOrNull()!!, itemContent = { item ->
-                            var isFavoriteClicked by remember {
-                                mutableStateOf(item.isFavorite)
-                            }
+                    items(items = products, itemContent = { item ->
+                        var isFavoriteClicked by remember {
+                            mutableStateOf(item.isFavorite)
+                        }
 
-                            Card(modifier = Modifier.fillMaxWidth(), elevation = 4.dp) {
-                                Column(
-                                    Modifier.fillMaxWidth(),
-                                    horizontalAlignment = Alignment.CenterHorizontally
-                                ) {
+                        Card(modifier = Modifier.fillMaxWidth(), elevation = 4.dp) {
+                            Column(
+                                Modifier.fillMaxWidth(),
+                                horizontalAlignment = Alignment.CenterHorizontally
+                            ) {
 
-                                    Image(
-                                        painter = rememberImagePainter(item.imageUrl),
-                                        modifier = Modifier.size(160.dp)
-                                            .testTag(productImageTag),
-                                        contentDescription = "product image"
-                                    )
-                                    Text(text = item.title, style = TextStyle(fontSize = 22.sp))
-                                    Text(text = item.price.toString(), style = TextStyle(fontSize = 18.sp))
+                                Image(
+                                    painter = rememberImagePainter(item.imageURL),
+                                    modifier = Modifier.size(160.dp)
+                                        .testTag(productImageTag),
+                                    contentDescription = "product image"
+                                )
+                                Text(text = item.title, style = TextStyle(fontSize = 22.sp))
+                                Text(text = item.price[0].value.toString(), style = TextStyle(fontSize = 18.sp))
 
-                                    Row {
-                                        IconButton(
-                                            onClick = {
-                                                isFavoriteClicked = !isFavoriteClicked
-                                            },
-                                            Modifier.background(Red400, RoundedCornerShape(4.dp))
-                                        ) {
-                                            Row {
-                                                Image(
-                                                    painter = painterResource(
-                                                        id = if (isFavoriteClicked) R.drawable.ic_favorite
-                                                        else R.drawable.ic_favorite_border
-                                                    ),
-                                                    contentDescription = "favorite button"
-                                                )
-                                                Text(text = "Favorite", color = Color.White)
-                                            }
+                                Row {
+                                    IconButton(
+                                        onClick = {
+                                            isFavoriteClicked = !isFavoriteClicked
+                                        },
+                                        Modifier.background(Red400, RoundedCornerShape(4.dp))
+                                    ) {
+                                        Row {
+                                            Image(
+                                                painter = painterResource(
+                                                    id = if (isFavoriteClicked) R.drawable.ic_favorite
+                                                    else R.drawable.ic_favorite_border
+                                                ),
+                                                contentDescription = "favorite button"
+                                            )
+                                            Text(text = "Favorite", color = Color.White)
                                         }
+                                    }
 
-                                        Button(onClick = { /*TODO*/ }) {
-                                            Text(text = "Add to cart")
-                                        }
+                                    Button(onClick = { /*TODO*/ }) {
+                                        Text(text = "Add to cart")
                                     }
                                 }
                             }
-                        })
-                    }
-                } else {
-                    //TODO Show error message
+                        }
+                    })
                 }
             }
 
