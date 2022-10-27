@@ -26,6 +26,7 @@ import com.anonymous.shopping.commons.Constant.productPriceTag
 import com.anonymous.shopping.commons.Constant.productTitleTag
 import com.anonymous.shopping.commons.Constant.progressLoaderTag
 import com.anonymous.shopping.presentation.MainViewModel
+import com.anonymous.shopping.presentation.State
 import com.anonymous.shopping.presentation.common_views.TopBar
 import com.anonymous.shopping.presentation.theme.Red400
 
@@ -36,7 +37,8 @@ fun BeverageListView(viewModel: MainViewModel) {
         topBar = { TopBar() },
     ) {
         val productList by viewModel.productList.observeAsState()
-        Box {
+        Box(modifier = Modifier.fillMaxSize()
+            , contentAlignment = Alignment.Center) {
             productList?.let { products ->
                 LazyColumn(modifier = Modifier.testTag(beverageListTag),
                     verticalArrangement = Arrangement.spacedBy(16.dp),
@@ -94,10 +96,11 @@ fun BeverageListView(viewModel: MainViewModel) {
                     })
                 }
             }
-
-            CircularProgressIndicator(
-                modifier = Modifier.testTag(progressLoaderTag)
-            )
+                if (!viewModel.isLoaded.value) {
+                    CircularProgressIndicator(
+                        modifier = Modifier.testTag(progressLoaderTag)
+                    )
+                }
         }
     }
 }

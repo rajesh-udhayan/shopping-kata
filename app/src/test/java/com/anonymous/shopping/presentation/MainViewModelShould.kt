@@ -36,6 +36,15 @@ class MainViewModelShould: BaseUnitTest() {
         assertThat(expected).isEqualTo(viewModel.productList.getValueForTest())
     }
 
+    @Test
+    fun shouldUpdateProgressStateOnceProductListLoaded(){
+        viewModel = mockSuccessfulResponse()
+
+        viewModel.productList.getValueForTest()
+
+        assertThat(viewModel.isLoaded.value).isTrue()
+    }
+
     private fun mockSuccessfulResponse(): MainViewModel {
         runTest {
             coEvery { repository.getProducts() } returns listOf()
