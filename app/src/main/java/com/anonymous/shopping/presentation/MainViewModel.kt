@@ -11,7 +11,7 @@ import javax.inject.Inject
 class MainViewModel @Inject constructor(private val repository: ProductsRepository): ViewModel() {
 
     val productList = liveData {
-        emitSource(repository.getProducts().asLiveData())
+        emit(repository.getProducts())
     }
 
 }

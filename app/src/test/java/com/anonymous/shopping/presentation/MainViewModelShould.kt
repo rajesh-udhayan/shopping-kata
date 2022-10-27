@@ -38,9 +38,7 @@ class MainViewModelShould: BaseUnitTest() {
 
     private fun mockSuccessfulResponse(): MainViewModel {
         runTest {
-            coEvery { repository.getProducts() } returns flow {
-                emit(expected)
-            }
+            coEvery { repository.getProducts() } returns listOf()
         }
         return MainViewModel(repository)
     }

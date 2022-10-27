@@ -10,7 +10,7 @@ import javax.inject.Inject
 
 class ProductLocalDataSource @Inject constructor(private val productDao: ProductDao) {
 
-    suspend fun getProductsFromDB(): Flow<List<Product>> {
+    suspend fun getProductsFromDB(): List<Product> {
         return productDao.getProducts()
     }
 

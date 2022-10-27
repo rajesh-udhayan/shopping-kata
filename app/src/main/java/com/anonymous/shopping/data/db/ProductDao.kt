@@ -17,7 +17,7 @@ interface ProductDao {
     suspend fun deleteAllProducts()
 
     @Query("SELECT * FROM products")
-    fun getProducts(): Flow<List<Product>>
+    suspend fun getProducts(): List<Product>
 
     @Query("UPDATE products SET isFavorite = :isFavorite WHERE id LIKE :id")
     suspend fun updateFavorite(isFavorite: Int, id: String)

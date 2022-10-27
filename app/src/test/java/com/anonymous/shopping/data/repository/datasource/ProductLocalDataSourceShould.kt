@@ -14,9 +14,7 @@ class ProductLocalDataSourceShould: BaseUnitTest() {
         val productDao = mockk<ProductDao>()
         val productLocalDataSource = ProductLocalDataSource(productDao)
 
-        coEvery { productDao.getProducts() } returns flow{
-            emit(mockk())
-        }
+        coEvery { productDao.getProducts() } returns listOf()
         productLocalDataSource.getProductsFromDB()
 
         coVerify { productDao.getProducts() }
