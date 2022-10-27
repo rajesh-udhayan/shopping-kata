@@ -55,4 +55,8 @@ class ProductsRepository @Inject constructor(private val productLocalDataSource:
     fun getFavoriteProducts(): Flow<List<Product>>{
         return productLocalDataSource.getFavoriteProductsFromDB()
     }
+
+    fun getProductDetails(id: String): Flow<Product>{
+        return productLocalDataSource.getProductDetailsFromDB(id)
+    }
 }

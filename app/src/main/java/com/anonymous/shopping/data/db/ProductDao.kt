@@ -26,4 +26,7 @@ interface ProductDao {
     @Query("SELECT * FROM products where isFavorite = 1")
     fun getFavoriteProducts(): Flow<List<Product>>
 
+    @Query("SELECT * FROM products where id LIKE :id")
+    fun getProductDetails(id: String): Flow<Product>
+
 }

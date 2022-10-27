@@ -36,4 +36,8 @@ class ProductLocalDataSource @Inject constructor(private val productDao: Product
         return productDao.getFavoriteProducts()
     }
 
+    fun getProductDetailsFromDB(id: String): Flow<Product> {
+        return productDao.getProductDetails(id)
+    }
+
 }
