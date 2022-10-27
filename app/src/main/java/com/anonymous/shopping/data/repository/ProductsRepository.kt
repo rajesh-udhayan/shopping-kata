@@ -1,10 +1,11 @@
 package com.anonymous.shopping.data.repository
 
-import android.util.Log
 import com.anonymous.shopping.data.model.Product
 import com.anonymous.shopping.data.repository.datasource.ProductLocalDataSource
 import com.anonymous.shopping.data.repository.datasource.ProductRemoteDataSource
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
 class ProductsRepository @Inject constructor(private val productLocalDataSource: ProductLocalDataSource,

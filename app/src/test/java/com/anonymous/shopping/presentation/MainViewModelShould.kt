@@ -2,7 +2,6 @@ package com.anonymous.shopping.presentation
 
 import com.anonymous.shopping.data.model.Product
 import com.anonymous.shopping.data.repository.ProductsRepository
-import com.anonymous.shopping.presentation.MainViewModel
 import com.anonymous.shopping.utils.BaseUnitTest
 import com.anonymous.shopping.utils.getValueForTest
 import com.google.common.truth.Truth.assertThat
