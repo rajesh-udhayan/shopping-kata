@@ -23,7 +23,7 @@ class MainViewModelShould: BaseUnitTest() {
     @Test
     fun getProductsFromRepository() = runTest{
         viewModel = mockSuccessfulResponse()
-        viewModel.products.getValueForTest()
+        viewModel.getProducts()
 
         coVerify { repository.getProducts() }
     }
@@ -31,6 +31,7 @@ class MainViewModelShould: BaseUnitTest() {
     @Test
     fun emitsProductsFromRepository()  = runTest{
         viewModel = mockSuccessfulResponse()
+        viewModel.getProducts()
 
         assertThat(expected).isEqualTo(viewModel.products.getValueForTest())
     }
@@ -39,14 +40,16 @@ class MainViewModelShould: BaseUnitTest() {
     fun shouldUpdateProgressStateOnceProductListLoaded(){
         viewModel = mockSuccessfulResponse()
 
-        viewModel.products.getValueForTest()
+        viewModel.getProducts()
 
         assertThat(viewModel.isLoaded.value).isTrue()
     }
 
     private fun mockSuccessfulResponse(): MainViewModel {
         runTest {
-            coEvery { repository.getProducts() } returns flow{}
+            coEvery { repository.getProducts() } returns flow{
+                emit(expected)
+            }
         }
         return MainViewModel(repository)
     }
