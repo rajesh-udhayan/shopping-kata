@@ -20,8 +20,6 @@ import com.anonymous.shopping.presentation.theme.ShoppingTheme
 fun MainScreenView(viewModel: MainViewModel) {
     val bottomBarState = rememberSaveable { (mutableStateOf(true)) }
 
-    ShoppingTheme {
-
         val navController = rememberNavController()
 
         val navBackStackEntry by navController.currentBackStackEntryAsState()
@@ -51,5 +49,4 @@ fun MainScreenView(viewModel: MainViewModel) {
                 }
             }
         )
-    }
 }

@@ -33,7 +33,7 @@ class BeverageListFeature {
         composeTestRule.setContent {
             ShoppingTheme {
                 val viewModel = composeTestRule.activity.viewModels<MainViewModel>().value
-                HomeView(viewModel)
+                MainScreenView(viewModel)
             }
         }
     }
