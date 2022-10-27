@@ -1,10 +1,7 @@
 package com.anonymous.shopping.presentation.beverage_list
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
@@ -57,8 +54,8 @@ fun ProductDetailView(id: String?, navController: NavController, viewModel: Main
 
                 Column(
                     Modifier
-                        .fillMaxWidth(),
-                    horizontalAlignment = Alignment.CenterHorizontally
+                        .fillMaxWidth()
+                        .padding(16.dp),
                 ) {
                     IconButton(
                         modifier = Modifier.align(Alignment.End),
@@ -67,35 +64,43 @@ fun ProductDetailView(id: String?, navController: NavController, viewModel: Main
                             viewModel.updateFavorite(isFavoriteClicked, item.id)
                         },
                     ) {
-                        Row {
                             Image(
                                 painter = painterResource(
                                     id = if (isFavoriteClicked == 1) R.drawable.ic_favorite
                                     else R.drawable.ic_favorite_border
                                 ),
                                 contentDescription = "favorite button",
-                                colorFilter = ColorFilter.tint(Color.Red)
+                                colorFilter = ColorFilter.tint(Color.Red),
                             )
-                        }
                     }
                     Image(
                         painter = rememberImagePainter(item.imageURL),
                         modifier = Modifier
                             .size(160.dp)
-                            .testTag(Constant.productImageTag),
+                            .testTag(Constant.productImageTag)
+                            .align(Alignment.CenterHorizontally),
                         contentDescription = "product image"
                     )
+                    Spacer(modifier = Modifier.size(16.dp))
                     Text(
                         text = item.title,
                         modifier = Modifier.testTag(Constant.productTitleTag),
                         style = TextStyle(fontSize = 22.sp)
                     )
+                    Spacer(modifier = Modifier.size(8.dp))
                     Text(
-                        text = item.saleUnitPrice.toString(),
+                        text = "Price: $ ${item.saleUnitPrice.toString()}",
                         modifier = Modifier.testTag(Constant.productPriceTag),
                         style = TextStyle(fontSize = 18.sp)
                     )
-
+                    Spacer(modifier = Modifier.size(16.dp))
+                    RatingBar(rating = item.ratingCount.toFloat(), spaceBetween = 3.dp)
+                    Spacer(modifier = Modifier.size(4.dp))
+                    Text(
+                        text = "Rating: ${item.ratingCount.toString()}",
+                        modifier = Modifier.testTag(Constant.productRatingTag),
+                        style = TextStyle(fontSize = 18.sp)
+                    )
                 }
             }
         }

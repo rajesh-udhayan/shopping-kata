@@ -8,4 +8,5 @@ object Constant {
     val productTitleTag = "product_title_tag"
     val productPriceTag = "product_price_tag"
     val noProductTag = "no_product_tag"
+    val productRatingTag = "product_rating_tag"
 }
