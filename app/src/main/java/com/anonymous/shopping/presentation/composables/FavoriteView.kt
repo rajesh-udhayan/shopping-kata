@@ -1,4 +1,4 @@
-package com.anonymous.shopping.presentation.beverage_list
+package com.anonymous.shopping.presentation.composables
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue

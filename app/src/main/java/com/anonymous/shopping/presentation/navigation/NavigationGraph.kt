@@ -7,9 +7,9 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.anonymous.shopping.presentation.MainViewModel
-import com.anonymous.shopping.presentation.beverage_list.FavoriteView
-import com.anonymous.shopping.presentation.beverage_list.HomeView
-import com.anonymous.shopping.presentation.beverage_list.ProductDetailView
+import com.anonymous.shopping.presentation.composables.FavoriteView
+import com.anonymous.shopping.presentation.composables.HomeView
+import com.anonymous.shopping.presentation.composables.ProductDetailView
 
 @Composable
 fun NavigationGraph(navController: NavHostController, viewModel: MainViewModel) {

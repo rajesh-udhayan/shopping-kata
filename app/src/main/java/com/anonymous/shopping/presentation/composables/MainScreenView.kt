@@ -1,4 +1,4 @@
-package com.anonymous.shopping.presentation.beverage_list
+package com.anonymous.shopping.presentation.composables
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
@@ -14,7 +14,6 @@ import androidx.navigation.compose.rememberNavController
 import com.anonymous.shopping.presentation.MainViewModel
 import com.anonymous.shopping.presentation.navigation.BottomNavigation
 import com.anonymous.shopping.presentation.navigation.NavigationGraph
-import com.anonymous.shopping.presentation.theme.ShoppingTheme
 
 @Composable
 fun MainScreenView(viewModel: MainViewModel) {

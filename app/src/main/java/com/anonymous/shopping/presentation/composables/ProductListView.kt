@@ -1,4 +1,4 @@
-package com.anonymous.shopping.presentation.beverage_list
+package com.anonymous.shopping.presentation.composables
 
 import android.widget.Toast
 import androidx.compose.foundation.Image

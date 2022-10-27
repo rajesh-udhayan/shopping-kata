@@ -1,4 +1,4 @@
-package com.anonymous.shopping.presentation.beverage_list
+package com.anonymous.shopping.presentation.composables
 
 import androidx.activity.viewModels
 import androidx.compose.ui.test.*
