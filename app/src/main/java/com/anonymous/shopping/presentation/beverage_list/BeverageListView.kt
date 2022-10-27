@@ -26,7 +26,6 @@ import com.anonymous.shopping.commons.Constant.productPriceTag
 import com.anonymous.shopping.commons.Constant.productTitleTag
 import com.anonymous.shopping.commons.Constant.progressLoaderTag
 import com.anonymous.shopping.presentation.MainViewModel
-import com.anonymous.shopping.presentation.State
 import com.anonymous.shopping.presentation.common_views.TopBar
 import com.anonymous.shopping.presentation.theme.Red400
 
