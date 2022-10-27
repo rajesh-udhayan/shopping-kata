@@ -6,6 +6,8 @@ import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import com.anonymous.shopping.commons.Constant.appName
 import com.anonymous.shopping.commons.Constant.beverageListTag
 import com.anonymous.shopping.commons.Constant.productImageTag
+import com.anonymous.shopping.commons.Constant.productPriceTag
+import com.anonymous.shopping.commons.Constant.productTitleTag
 import com.anonymous.shopping.commons.Constant.progressLoaderTag
 import com.anonymous.shopping.presentation.MainActivity
 import com.anonymous.shopping.presentation.MainViewModel
@@ -51,8 +53,8 @@ class BeverageListFeature {
         with(composeTestRule.onNodeWithTag(beverageListTag)
             .onChildren()
             .onFirst()){
-            assert(hasText("Diamond Label Shiraz"))
-            assert(hasText("9.40"))
+            assert(hasTestTag(productTitleTag))
+            assert(hasTestTag(productPriceTag))
             assert(hasTestTag(productImageTag))
         }
     }

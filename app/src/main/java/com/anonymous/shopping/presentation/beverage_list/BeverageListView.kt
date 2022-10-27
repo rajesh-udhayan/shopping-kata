@@ -22,6 +22,8 @@ import coil.compose.rememberImagePainter
 import com.anonymous.shopping.R
 import com.anonymous.shopping.commons.Constant.beverageListTag
 import com.anonymous.shopping.commons.Constant.productImageTag
+import com.anonymous.shopping.commons.Constant.productPriceTag
+import com.anonymous.shopping.commons.Constant.productTitleTag
 import com.anonymous.shopping.commons.Constant.progressLoaderTag
 import com.anonymous.shopping.presentation.MainViewModel
 import com.anonymous.shopping.presentation.common_views.TopBar
@@ -57,8 +59,12 @@ fun BeverageListView(viewModel: MainViewModel) {
                                         .testTag(productImageTag),
                                     contentDescription = "product image"
                                 )
-                                Text(text = item.title, style = TextStyle(fontSize = 22.sp))
-                                Text(text = item.saleUnitPrice.toString(), style = TextStyle(fontSize = 18.sp))
+                                Text(text = item.title,
+                                    modifier = Modifier.testTag(productTitleTag),
+                                    style = TextStyle(fontSize = 22.sp))
+                                Text(text = item.saleUnitPrice.toString(),
+                                    modifier = Modifier.testTag(productPriceTag),
+                                    style = TextStyle(fontSize = 18.sp))
 
                                 Row {
                                     IconButton(
