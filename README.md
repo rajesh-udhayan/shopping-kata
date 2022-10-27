@@ -19,6 +19,7 @@ This app consists of three screens
     * On clicking the item, head to the product details screen.
     
 # Navigation
+
     * Product list screen and Favourites screen should be in the bottom navigation bar.
     * Clicking on an item in Product list screen and Favourites screen should navigate to Product Details screen.
 
