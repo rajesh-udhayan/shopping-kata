@@ -4,38 +4,37 @@ import android.util.Log
 import com.anonymous.shopping.data.model.Product
 import com.anonymous.shopping.data.repository.datasource.ProductLocalDataSource
 import com.anonymous.shopping.data.repository.datasource.ProductRemoteDataSource
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.count
-import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 
 class ProductsRepository @Inject constructor(private val productLocalDataSource: ProductLocalDataSource,
                                              private val productRemoteDataSource: ProductRemoteDataSource
 ){
 
-    suspend fun getProducts(): List<Product> {
-        return getMoviesFromDB()
+    suspend fun getProducts(): Flow<List<Product>> {
+        return getProductsFromDB()
     }
 
-    suspend fun getMoviesFromDB(): List<Product> {
-        lateinit var productList: List<Product>
+    private suspend fun getProductsFromDB(): Flow<List<Product>> {
+        lateinit var productList: Flow<List<Product>>
         try {
             productList = productLocalDataSource.getProductsFromDB()
         } catch (e: Exception){
             e.printStackTrace()
         }
 
-        if (productList.size != 0){
+        if (productList.first().isNotEmpty()){
             return productList
         } else {
-            productList = getProductsFromApi()
-            productLocalDataSource.saveProductsToDB(productList)
+            productList = flow {
+                emit(getProductsFromApi())
+            }
+            productLocalDataSource.saveProductsToDB(getProductsFromApi())
         }
         return productList
     }
 
-    suspend fun getProductsFromApi(): List<Product> {
+    private suspend fun getProductsFromApi(): List<Product> {
         lateinit var productList: List<Product>
         try {
             val response = productRemoteDataSource.getProducts()
@@ -51,5 +50,9 @@ class ProductsRepository @Inject constructor(private val productLocalDataSource:
 
     suspend fun updateFavorite(isFavorite: Int, id: String){
         productLocalDataSource.updateFavorite(isFavorite,id)
+    }
+
+    fun getFavoriteProducts(): Flow<List<Product>>{
+        return productLocalDataSource.getFavoriteProductsFromDB()
     }
 }

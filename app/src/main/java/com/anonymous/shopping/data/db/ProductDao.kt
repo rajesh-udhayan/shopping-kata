@@ -1,5 +1,6 @@
 package com.anonymous.shopping.data.db
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -17,11 +18,12 @@ interface ProductDao {
     suspend fun deleteAllProducts()
 
     @Query("SELECT * FROM products")
-    suspend fun getProducts(): List<Product>
+    fun getProducts(): Flow<List<Product>>
 
     @Query("UPDATE products SET isFavorite = :isFavorite WHERE id LIKE :id")
     suspend fun updateFavorite(isFavorite: Int, id: String)
 
     @Query("SELECT * FROM products where isFavorite = 1")
-    fun getFavoriteProducts(): List<Product>
+    fun getFavoriteProducts(): Flow<List<Product>>
+
 }

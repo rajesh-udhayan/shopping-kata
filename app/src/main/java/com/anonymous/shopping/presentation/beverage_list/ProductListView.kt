@@ -12,6 +12,7 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
@@ -25,19 +26,19 @@ import com.anonymous.shopping.commons.Constant.productImageTag
 import com.anonymous.shopping.commons.Constant.productPriceTag
 import com.anonymous.shopping.commons.Constant.productTitleTag
 import com.anonymous.shopping.commons.Constant.progressLoaderTag
+import com.anonymous.shopping.data.model.Product
 import com.anonymous.shopping.presentation.MainViewModel
 import com.anonymous.shopping.presentation.common_views.TopBar
 import com.anonymous.shopping.presentation.theme.Red400
 
 @OptIn(ExperimentalCoilApi::class)
 @Composable
-fun BeverageListView(viewModel: MainViewModel) {
+fun ProductListView(viewModel: MainViewModel, productList: List<Product>?) {
     Scaffold(
         topBar = { TopBar() },
     ) {
-        val productList by viewModel.productList.observeAsState()
         Box(modifier = Modifier.fillMaxSize()
-            , contentAlignment = Alignment.Center) {
+            ) {
             productList?.let { products ->
                 LazyColumn(modifier = Modifier.testTag(beverageListTag),
                     verticalArrangement = Arrangement.spacedBy(16.dp),
@@ -53,7 +54,24 @@ fun BeverageListView(viewModel: MainViewModel) {
                                 Modifier.fillMaxWidth(),
                                 horizontalAlignment = Alignment.CenterHorizontally
                             ) {
-
+                                IconButton(
+                                    modifier = Modifier.align(Alignment.End),
+                                    onClick = {
+                                        isFavoriteClicked = if(isFavoriteClicked == 1) 0 else 1
+                                        viewModel.updateFavorite(isFavoriteClicked, item.id)
+                                    },
+                                ) {
+                                    Row {
+                                        Image(
+                                            painter = painterResource(
+                                                id = if (isFavoriteClicked == 1) R.drawable.ic_favorite
+                                                else R.drawable.ic_favorite_border
+                                            ),
+                                            contentDescription = "favorite button",
+                                            colorFilter = ColorFilter.tint(Color.Red)
+                                        )
+                                    }
+                                }
                                 Image(
                                     painter = rememberImagePainter(item.imageURL),
                                     modifier = Modifier.size(160.dp)
@@ -68,25 +86,6 @@ fun BeverageListView(viewModel: MainViewModel) {
                                     style = TextStyle(fontSize = 18.sp))
 
                                 Row {
-                                    IconButton(
-                                        onClick = {
-                                            isFavoriteClicked = if(isFavoriteClicked == 1) 0 else 1
-                                            viewModel.updateFavorite(isFavoriteClicked, item.id)
-                                        },
-                                        Modifier.background(Red400, RoundedCornerShape(4.dp))
-                                    ) {
-                                        Row {
-                                            Image(
-                                                painter = painterResource(
-                                                    id = if (isFavoriteClicked == 1) R.drawable.ic_favorite
-                                                    else R.drawable.ic_favorite_border
-                                                ),
-                                                contentDescription = "favorite button"
-                                            )
-                                            Text(text = "Favorite", color = Color.White)
-                                        }
-                                    }
-
                                     Button(onClick = { /*TODO*/ }) {
                                         Text(text = "Add to cart")
                                     }
@@ -99,6 +98,7 @@ fun BeverageListView(viewModel: MainViewModel) {
                 if (!viewModel.isLoaded.value) {
                     CircularProgressIndicator(
                         modifier = Modifier.testTag(progressLoaderTag)
+                            .align(Alignment.Center)
                     )
                 }
         }

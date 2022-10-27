@@ -4,7 +4,8 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
-import com.anonymous.shopping.presentation.beverage_list.BeverageListView
+import com.anonymous.shopping.presentation.beverage_list.MainScreenView
+import com.anonymous.shopping.presentation.beverage_list.ProductListView
 import com.anonymous.shopping.presentation.theme.ShoppingTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -17,7 +18,7 @@ class MainActivity: ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             ShoppingTheme {
-                BeverageListView(viewModel)
+                MainScreenView(viewModel)
             }
         }
     }

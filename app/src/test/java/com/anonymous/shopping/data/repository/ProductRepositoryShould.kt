@@ -7,6 +7,7 @@ import com.anonymous.shopping.data.repository.datasource.ProductRemoteDataSource
 import com.anonymous.shopping.utils.BaseUnitTest
 import com.google.common.truth.Truth.assertThat
 import io.mockk.*
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.test.runTest
 import org.junit.Before
@@ -26,7 +27,7 @@ class ProductRepositoryShould: BaseUnitTest() {
 
     @Test
     fun getProductsFromAPIAndSaveToLocalDataSourceWhenDBIsEmpty() = runTest {
-        coEvery { productLocalDataSource.getProductsFromDB() } returns listOf()
+        coEvery { productLocalDataSource.getProductsFromDB() } returns flow{}
         coEvery { productRemoteDataSource.getProducts() } returns Response.success(
             ProductList(
                 listOf())
@@ -42,18 +43,26 @@ class ProductRepositoryShould: BaseUnitTest() {
 
     @Test
     fun getProductsFromDBWhenDBHasValues() = runTest {
-        val mockProduct = Product("1234",
+        val product = mockProduct()
+
+        coEvery { productLocalDataSource.getProductsFromDB() } returns flow{
+            emit(listOf(product)) }
+
+        repository.getProducts()
+
+        assertThat(repository.getProducts().first()).isEqualTo(listOf(product))
+    }
+
+    private fun mockProduct(): Product {
+        val mockProduct = Product(
+            "1234",
             "test_url",
             10.23,
             11.50,
             "test_title",
             11,
-            0)
-
-        coEvery { productLocalDataSource.getProductsFromDB() } returns listOf(mockProduct)
-
-        repository.getProducts()
-
-        assertThat(repository.getProducts()).isEqualTo(listOf(mockProduct))
+            0
+        )
+        return mockProduct
     }
 }
