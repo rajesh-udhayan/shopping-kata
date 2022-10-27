@@ -49,4 +49,7 @@ class ProductsRepository @Inject constructor(private val productLocalDataSource:
         return productList
     }
 
+    suspend fun updateFavorite(isFavorite: Int, id: String){
+        productLocalDataSource.updateFavorite(isFavorite,id)
+    }
 }

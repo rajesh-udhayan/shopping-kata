@@ -71,6 +71,7 @@ fun BeverageListView(viewModel: MainViewModel) {
                                     IconButton(
                                         onClick = {
                                             isFavoriteClicked = if(isFavoriteClicked == 1) 0 else 1
+                                            viewModel.updateFavorite(isFavoriteClicked, item.id)
                                         },
                                         Modifier.background(Red400, RoundedCornerShape(4.dp))
                                     ) {
