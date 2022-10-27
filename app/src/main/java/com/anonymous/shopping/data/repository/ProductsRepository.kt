@@ -35,7 +35,7 @@ class ProductsRepository @Inject constructor(private val productLocalDataSource:
     }
 
     private suspend fun getProductsFromApi(): List<Product> {
-        lateinit var productList: List<Product>
+         var productList: List<Product> = listOf()
         try {
             val response = productRemoteDataSource.getProducts()
             val body = response.body()

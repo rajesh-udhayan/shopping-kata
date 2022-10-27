@@ -1,5 +1,6 @@
 package com.anonymous.shopping.presentation.beverage_list
 
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -11,10 +12,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -65,10 +68,12 @@ fun ProductListView(navController: NavController,
                                 mutableStateOf(item.isFavorite)
                             }
 
-                            Card(modifier = Modifier.fillMaxWidth(), elevation = 4.dp) {
+                            Card(modifier = Modifier.fillMaxWidth(),
+                                elevation = 4.dp) {
                                 Column(
                                     Modifier
                                         .fillMaxWidth()
+                                        .padding(8.dp)
                                         .clickable {
                                             navController.navigate(
                                                 Screen.ProductDetail.withArgs(
@@ -106,16 +111,20 @@ fun ProductListView(navController: NavController,
                                     Text(
                                         text = item.title,
                                         modifier = Modifier.testTag(productTitleTag),
-                                        style = TextStyle(fontSize = 22.sp)
+                                        style = TextStyle(fontSize = 20.sp),
+                                        textAlign = TextAlign.Center
                                     )
                                     Text(
-                                        text = item.saleUnitPrice.toString(),
+                                        text = "Price: $ ${item.saleUnitPrice.toString()}",
                                         modifier = Modifier.testTag(productPriceTag),
                                         style = TextStyle(fontSize = 18.sp)
                                     )
 
                                     Row {
-                                        Button(onClick = { /*TODO*/ }) {
+                                        val context = LocalContext.current
+                                        Button(onClick = {
+                                            Toast.makeText(context, "Feature in progress", Toast.LENGTH_LONG).show()
+                                        }) {
                                             Text(text = "Add to cart")
                                         }
                                     }
