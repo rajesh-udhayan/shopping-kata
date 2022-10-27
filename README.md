@@ -2,7 +2,7 @@
 
 A simple beverage shopping app developed using kotlin by following TDD approach. 
 
-#Screens
+# Screens
 
 This app consists of three screens
 
@@ -18,7 +18,7 @@ This app consists of three screens
     * Favourite icon button to delete the product from the favourite list. The item should be removed from the list once the icon gets clicked.
     * On clicking the item, head to the product details screen.
     
-'# Navigation
+# Navigation
     * Product list screen and Favourites screen should be in the bottom navigation bar.
     * Clicking on an item in Product list screen and Favourites screen should navigate to Product Details screen.
 
