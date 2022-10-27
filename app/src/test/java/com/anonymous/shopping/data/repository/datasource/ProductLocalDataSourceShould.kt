@@ -60,9 +60,7 @@ class ProductLocalDataSourceShould: BaseUnitTest() {
         val productDao = mockk<ProductDao>()
         val productLocalDataSource = ProductLocalDataSource(productDao)
 
-        coEvery { productDao.getFavoriteProducts() } returns flow{
-            emit(mockk())
-        }
+        coEvery { productDao.getFavoriteProducts() } returns mockk()
         productLocalDataSource.getFavoriteProductsFromDB()
 
         coVerify { productDao.getFavoriteProducts() }

@@ -45,15 +45,7 @@ class ProductDaoTest {
 
         productsDao.saveProducts(listOf(product))
 
-        val latch = CountDownLatch(1)
-        val job = async(Dispatchers.IO) {
-            productsDao.getProducts().collect {
-                assertThat(it).contains(product)
-                latch.countDown()
-            }
-        }
-        latch.await()
-        job.cancelAndJoin()
+        assertThat(productsDao.getProducts()).contains(product)
     }
 
     @Test
@@ -64,16 +56,8 @@ class ProductDaoTest {
         productsDao.saveProducts(listOf(product1, product2))
         productsDao.deleteAllProducts()
 
-        val latch = CountDownLatch(1)
-        val job = async(Dispatchers.IO) {
-            productsDao.getProducts().collect {
-                assertThat(it).doesNotContain(product1)
-                assertThat(it).doesNotContain(product2)
-                latch.countDown()
-            }
-        }
-        latch.await()
-        job.cancelAndJoin()
+        assertThat(productsDao.getProducts()).doesNotContain(product1)
+        assertThat(productsDao.getProducts()).doesNotContain(product2)
     }
 
     @Test
@@ -82,17 +66,10 @@ class ProductDaoTest {
 
         productsDao.saveProducts(listOf(product))
         productsDao.updateFavorite(1,product.id)
+        product.isFavorite = 1
 
-        val latch = CountDownLatch(1)
-        val job = async(Dispatchers.IO) {
-            productsDao.getFavoriteProducts().collect {
-                product.isFavorite = 1
-                assertThat(it).contains(product)
-                latch.countDown()
-            }
-        }
-        latch.await()
-        job.cancelAndJoin()
+        assertThat(productsDao.getFavoriteProducts()).isEqualTo(listOf(product))
+
     }
 
     @Test
@@ -103,15 +80,8 @@ class ProductDaoTest {
         productsDao.saveProducts(listOf(product))
         productsDao.updateFavorite(0,product.id)
 
-        val latch = CountDownLatch(1)
-        val job = async(Dispatchers.IO) {
-            productsDao.getFavoriteProducts().collect {
-                assertThat(it).doesNotContain(product)
-                latch.countDown()
-            }
-        }
-        latch.await()
-        job.cancelAndJoin()
+        assertThat(productsDao.getFavoriteProducts()).doesNotContain(product)
+
     }
 
     private fun mockProductData(): Product {

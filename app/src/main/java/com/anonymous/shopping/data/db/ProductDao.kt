@@ -23,5 +23,5 @@ interface ProductDao {
     suspend fun updateFavorite(isFavorite: Int, id: String)
 
     @Query("SELECT * FROM products where isFavorite = 1")
-    fun getFavoriteProducts(): Flow<List<Product>>
+    fun getFavoriteProducts(): List<Product>
 }

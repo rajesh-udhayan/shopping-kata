@@ -32,7 +32,7 @@ class ProductLocalDataSource @Inject constructor(private val productDao: Product
         }
     }
 
-    suspend fun getFavoriteProductsFromDB(): Flow<List<Product>> {
+    suspend fun getFavoriteProductsFromDB():List<Product> {
         return productDao.getFavoriteProducts()
     }
 
